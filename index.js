@@ -159,6 +159,16 @@ const typeDefs = gql`
     processing
   }
 
+  type AllUsers {
+    term: String
+    per: Int
+    current_page: Int
+    total_pages: Int
+    length: Int
+    authenticated: Boolean
+    users: [User]
+  }
+
   type User {
     avatar: String
     avatar_image: UserAvatarImage
@@ -197,6 +207,8 @@ const typeDefs = gql`
     allChannels(page: Int, size: Int, search: String): AllChannels
     Channel(slug: String!): Channel
     Block(id: Int!): Block
+
+    allUsers(page: Int, size: Int, search: String!): AllUsers
     User(id: Int): User
   }
 `;
@@ -218,7 +230,6 @@ const resolvers = {
 
       return data;
     },
-
     Channel: async (parent, args) => {
       const { slug } = args;
       const data = await (
@@ -231,6 +242,16 @@ const resolvers = {
       const { id } = args;
       const data = await (
         await fetch(`http://api.are.na/v2/blocks/${id}`)
+      ).json();
+      return data;
+    },
+
+    allUsers: async (parent, args) => {
+      const { search, page = 1, size = 20 } = args;
+      const data = await (
+        await fetch(
+          `https://api.are.na/v2/search/users?q=${search}&page=${page}&per=${size}`
+        )
       ).json();
       return data;
     },
