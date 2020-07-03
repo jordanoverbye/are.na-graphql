@@ -81,6 +81,16 @@ const typeDefs = gql`
     total_pages: Int
   }
 
+  type AllBlocks {
+    term: String
+    per: Int
+    current_page: Int
+    total_pages: Int
+    length: Int
+    authenticated: Boolean
+    blocks: [Block]
+  }
+
   type Block {
     attachment: Attatchment
     base_class: String
@@ -206,6 +216,8 @@ const typeDefs = gql`
   type Query {
     allChannels(page: Int, size: Int, search: String): AllChannels
     Channel(slug: String!): Channel
+
+    allBlocks(page: Int, size: Int, search: String!): AllBlocks
     Block(id: Int!): Block
 
     allUsers(page: Int, size: Int, search: String!): AllUsers
@@ -238,6 +250,15 @@ const resolvers = {
       return data;
     },
 
+    allBlocks: async (parent, args) => {
+      const { search, page = 1, size = 20 } = args;
+      const data = await (
+        await fetch(
+          `https://api.are.na/v2/search/blocks?q=${search}&page=${page}&per=${size}`
+        )
+      ).json();
+      return data;
+    },
     Block: async (parent, args) => {
       const { id } = args;
       const data = await (
@@ -255,7 +276,6 @@ const resolvers = {
       ).json();
       return data;
     },
-
     User: async (parent, args) => {
       const { id } = args;
       const data = await (
