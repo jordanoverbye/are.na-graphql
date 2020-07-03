@@ -1,0 +1,10 @@
+{
+  "name": "arena-graphql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^2.15.1",
+    "graphql": "^15.2.0"
+  }
+}
