@@ -1,5 +1,6 @@
 const fetch = require("node-fetch");
 const { ApolloServer, gql } = require("apollo-server");
+const { RESTDataSource } = require("apollo-datasource-rest");
 
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
@@ -225,63 +226,59 @@ const typeDefs = gql`
   }
 `;
 
+class ArenaAPI extends RESTDataSource {
+  constructor() {
+    super();
+    this.baseURL = "https://api.are.na/v2/";
+  }
+
+  async getUser({ id }) {
+    return this.get(`users/${id}`);
+  }
+
+  async getUsers({ search, page = 1, size = 20 }) {
+    return this.get(`search/users?q=${search}&page=${page}&per=${size}`);
+  }
+
+  async getBlock({ id }) {
+    return this.get(`blocks/${id}`);
+  }
+
+  async getBlocks({ search, page = 1, size = 20 }) {
+    return this.get(`search/blocks?q=${search}&page=${page}&per=${size}`);
+  }
+
+  async getChannel({ id }) {
+    return this.get(`channels/${id}`);
+  }
+
+  async getChannels({ search, page = 1, size = 20 }) {
+    const url = search
+      ? `search/channels?q=${search}&page=${page}&per=${size}`
+      : `channels?page=${page}&per=${size}`;
+    return this.get(url);
+  }
+}
+
 const resolvers = {
   Query: {
-    allChannels: async (parent, args) => {
-      const { page = 1, size = 10, search } = args;
-
-      const url = search
-        ? `https://api.are.na/v2/search/channels?q=${search}&page=${page}&per=${size}`
-        : `https://api.are.na/v2/channels?page=${page}&per=${size}`;
-
-      const data = await (await fetch(url)).json();
-
-      console.log(
-        data.channels.map((channel) => channel.contents).filter(Boolean)
-      );
-
-      return data;
+    allBlocks: async (_source, { search, page, size }, { dataSources }) => {
+      return dataSources.arenaAPI.getBlocks({ search, page, size });
     },
-    Channel: async (parent, args) => {
-      const { slug } = args;
-      const data = await (
-        await fetch(`https://api.are.na/v2/channels/${slug}`)
-      ).json();
-      return data;
+    Block: async (_source, { id }, { dataSources }) => {
+      return dataSources.arenaAPI.getBlock({ id });
     },
-
-    allBlocks: async (parent, args) => {
-      const { search, page = 1, size = 20 } = args;
-      const data = await (
-        await fetch(
-          `https://api.are.na/v2/search/blocks?q=${search}&page=${page}&per=${size}`
-        )
-      ).json();
-      return data;
+    allChannels: async (_source, { search, page, size }, { dataSources }) => {
+      return dataSources.arenaAPI.getChannels({ search, page, size });
     },
-    Block: async (parent, args) => {
-      const { id } = args;
-      const data = await (
-        await fetch(`http://api.are.na/v2/blocks/${id}`)
-      ).json();
-      return data;
+    Channel: async (_source, { id }, { dataSources }) => {
+      return dataSources.arenaAPI.getChannel({ id });
     },
-
-    allUsers: async (parent, args) => {
-      const { search, page = 1, size = 20 } = args;
-      const data = await (
-        await fetch(
-          `https://api.are.na/v2/search/users?q=${search}&page=${page}&per=${size}`
-        )
-      ).json();
-      return data;
+    allUsers: async (_source, { search, page, size }, { dataSources }) => {
+      return dataSources.arenaAPI.getUsers({ search, page, size });
     },
-    User: async (parent, args) => {
-      const { id } = args;
-      const data = await (
-        await fetch(`http://api.are.na/v2/users/${id}`)
-      ).json();
-      return data;
+    User: async (_source, { id }, { dataSources }) => {
+      return dataSources.arenaAPI.getUser({ id });
     },
   },
   Channel: {
@@ -304,7 +301,15 @@ const resolvers = {
 
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  dataSources: () => {
+    return {
+      arenaAPI: new ArenaAPI(),
+    };
+  },
+});
 
 // The `listen` method launches a web server.
 server.listen().then(({ url }) => {
