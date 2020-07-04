@@ -85,7 +85,7 @@ const typeDefs = gql`
     collaboratorCount: Int
     collaborators: [User]
     contents: [Block]
-    createdAt: Int
+    createdAt: String
     followerCount: Int
     id: Int
     kind: String
