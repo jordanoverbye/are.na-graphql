@@ -1,16 +1,16 @@
 {
   "name": "arena-graphql",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon src/index.js"
   },
   "dependencies": {
     "apollo-datasource-rest": "^0.9.3",
     "apollo-server": "^2.15.1",
+    "camelcase-keys": "^6.2.2",
     "graphql": "^15.2.0",
-    "node-fetch": "^2.6.0",
     "nodemon": "^2.0.4"
   }
 }
