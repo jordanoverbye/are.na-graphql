@@ -67,14 +67,13 @@ Query all Blocks
   Block(id: 100) {
     id
     title
-    ...etc
   }
 }
 ```
 
 Query Users
 
-```
+```graphql
 {
   allUsers(page: 1, size: 20, search: "Jordan") {
     id
@@ -84,14 +83,13 @@ Query Users
   }
 
   _allUsersMeta(page: 1, size: 20, search: "Jordan") {
-    currentPage: 2
+    currentPage: 1
     totalPages: 18
   }
 
   User(id: 100) {
     id
     firstName
-    etc
   }
 }
 ```
