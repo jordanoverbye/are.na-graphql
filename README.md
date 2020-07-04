@@ -33,7 +33,6 @@ Query all Channels
   allChannels(page: 2, size: 50, search: "Poster") {
     id
     title
-    ...etc
   }
 
   _allChannelsMeta(page: 2, size: 50, search: "Poster") {
@@ -44,7 +43,6 @@ Query all Channels
   Channel(slug: "a-channel-slug") {
     id
     title
-    ...etc
   }
 }
 ```
@@ -56,7 +54,6 @@ Query all Blocks
   allBlocks(page: 2, size: 50, search: "Code") {
     id
     title
-    ...etc
   }
 
   _allBlocksMeta(page: 2, size: 50, search: "Code") {
@@ -79,7 +76,6 @@ Query Users
     id
     firstName
     fullName
-    ... etc
   }
 
   _allUsersMeta(page: 1, size: 20, search: "Jordan") {
