@@ -39,10 +39,12 @@ Query all Channels
     id
     title
   }
+  
   _allChannelsMeta(page: 2, size: 50, search: "Poster") {
-    currentPage: 2
-    totalPages: 18
+    currentPage
+    totalPages
   }
+  
   Channel(slug: "a-channel-slug") {
     id
     title
@@ -53,33 +55,34 @@ Query all Channels
     id
     title
   }
+  
   _allBlocksMeta(page: 2, size: 50, search: "Code") {
-    currentPage: 2
-    totalPages: 18
+    currentPage
+    totalPages
   }
+  
   Block(id: 100) {
     id
     title
   }
   
-  # Queries related to 'Users'
+  # Queries related to users
   allUsers(page: 1, size: 20, search: "Jordan") {
     id
     firstName
     fullName
   }
+  
   _allUsersMeta(page: 1, size: 20, search: "Jordan") {
-    currentPage: 1
-    totalPages: 18
+    currentPage
+    totalPages
   }
+  
   User(id: 100) {
     id
     firstName
   }
 }
-```
-
-
 ```
 
 ## Mutations
@@ -92,6 +95,7 @@ mutation {
   }) {
     id
   }
+  
   createBlock(data: {
     channelSlug: "hello-world".
     source: "http://google.com"
