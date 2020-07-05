@@ -107,4 +107,4 @@ mutation {
 
 ## Authorisation
 
-You can add personal access tokens to the `Authorization` HTTP headers using the `Bearer` scheme
+To access private resources, you can add arena personal access tokens to the `Authorization` HTTP headers using the `Bearer` scheme
