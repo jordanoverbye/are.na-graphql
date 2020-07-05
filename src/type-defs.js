@@ -120,7 +120,7 @@ const typeDefs = gql`
     published: Boolean
     shareLink: String
     slug: String
-    status: String
+    status: Status
     title: String
     updatedAt: String
     user: User
@@ -203,8 +203,15 @@ const typeDefs = gql`
     processing
   }
 
+  enum Status {
+    public
+    closed
+    private
+  }
+
   input CreateChannelInput {
     title: String!
+    status: Status
   }
 
   input CreateBlockInput {
