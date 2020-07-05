@@ -1,6 +1,6 @@
-# are.na GraphQP server
+# are.na GraphQL server
 
-> Note: This is still very much a WIP
+> Note: This is still very much a WIP. There are some are.na API routes that are not yet supported through queries or mutations yet.
 
 A GraphQL schema and server wrapping the are.na REST API. The GraphQL schema can be found [here](./src/type-defs.js)
 
