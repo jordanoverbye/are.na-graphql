@@ -107,4 +107,4 @@ mutation {
 
 ## Authorisation
 
-To access private resources, you can add arena personal access tokens to the `Authorization` HTTP headers using the `Bearer` scheme
+In order to access private resources and perform mutations, you can add arena personal access tokens to the `Authorization` HTTP headers using the `Bearer` scheme. However, this is not required to perform queries on public channels/blocks.
