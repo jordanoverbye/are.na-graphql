@@ -34,7 +34,7 @@ Query all Channels
 ```graphql
 {
 
-  # Queries related to 'Channels'
+  # Queries related to channels
   allChannels(page: 2, size: 50, search: "Poster") {
     id
     title
@@ -50,7 +50,7 @@ Query all Channels
     title
   }
   
-  # Queries related to 'Blocks'
+  # Queries related to blocks
   allBlocks(page: 2, size: 50, search: "Code") {
     id
     title
