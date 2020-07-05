@@ -104,3 +104,7 @@ mutation {
   }
 }
 ```
+
+## Authorisation
+
+You can add personal access tokens to the `Authorization` HTTP headers using the `Bearer` scheme
