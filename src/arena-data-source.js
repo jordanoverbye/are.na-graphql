@@ -21,8 +21,8 @@ class ArenaDataSource extends RESTDataSource {
     return camelcaseKeys(data);
   }
 
-  async createBlock({ slug, source, content }) {
-    const data = await this.post(`channels/${slug}/blocks`, {
+  async createBlock({ channelSlug, source, content }) {
+    const data = await this.post(`channels/${channelSlug}/blocks`, {
       source,
       content,
     });

@@ -1,15 +1,8 @@
-const fs = require("fs");
-const path = require("path");
-
 const { ApolloServer } = require("apollo-server");
 const { ArenaDataSource } = require("./arena-data-source");
-const { gql } = require("apollo-server");
 
 const { resolvers } = require("./resolvers");
-
-const typeDefs = gql`
-  ${fs.readFileSync(path.join(__dirname, "..", "schema.graphql"))}
-`;
+const { typeDefs } = require("./type-defs");
 
 const server = new ApolloServer({
   resolvers,
@@ -27,5 +20,5 @@ const server = new ApolloServer({
 });
 
 server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
+  console.log(`🚀 Server ready at ${url}`);
 });
