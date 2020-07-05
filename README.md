@@ -2,8 +2,7 @@
 
 > Note: This is still very much a WIP
 
-A GraphQL schema and server wrapping the are.na REST API.
-
+A GraphQL schema and server wrapping the are.na REST API. The GraphQL schema can be found [here](./src/type-defs.js)
 
 ## Getting Started
 
@@ -33,51 +32,50 @@ Query all Channels
 
 ```graphql
 {
-
   # Queries related to channels
   allChannels(page: 2, size: 50, search: "Poster") {
     id
     title
   }
-  
+
   _allChannelsMeta(page: 2, size: 50, search: "Poster") {
     currentPage
     totalPages
   }
-  
+
   Channel(slug: "a-channel-slug") {
     id
     title
   }
-  
+
   # Queries related to blocks
   allBlocks(page: 2, size: 50, search: "Code") {
     id
     title
   }
-  
+
   _allBlocksMeta(page: 2, size: 50, search: "Code") {
     currentPage
     totalPages
   }
-  
+
   Block(id: 100) {
     id
     title
   }
-  
+
   # Queries related to users
   allUsers(page: 1, size: 20, search: "Jordan") {
     id
     firstName
     fullName
   }
-  
+
   _allUsersMeta(page: 1, size: 20, search: "Jordan") {
     currentPage
     totalPages
   }
-  
+
   User(id: 100) {
     id
     firstName
@@ -95,7 +93,7 @@ mutation {
   }) {
     id
   }
-  
+
   createBlock(data: {
     channelSlug: "hello-world".
     source: "http://google.com"
