@@ -1,6 +1,6 @@
 # are.na GraphQP server
 
-> Note: This is still a WIP
+> Note: This is still very much a WIP
 
 A GraphQL schema and server wrapping the are.na REST API.
 
