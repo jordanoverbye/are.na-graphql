@@ -7,6 +7,28 @@ class ArenaDataSource extends RESTDataSource {
     this.baseURL = "https://api.are.na/v2/";
   }
 
+  willSendRequest(request) {
+    if (this.context.authorization) {
+      request.headers.set("Authorization", this.context.authorization);
+    }
+  }
+
+  async createChannel({ title, status }) {
+    const data = await this.post(`channels`, {
+      title,
+      status,
+    });
+    return camelcaseKeys(data);
+  }
+
+  async createBlock({ slug, source, content }) {
+    const data = await this.post(`channels/${slug}/blocks`, {
+      source,
+      content,
+    });
+    return camelcaseKeys(data);
+  }
+
   /**
    ** Blocks
    */

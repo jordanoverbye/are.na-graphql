@@ -45,6 +45,14 @@ const resolvers = {
       return dataSources.arenaAPI.getUser({ id });
     },
   },
+  Mutation: {
+    createChannel: async (_source, { data }, { dataSources }) => {
+      return dataSources.arenaAPI.createChannel(data);
+    },
+    createBlock: async (_source, { data }, { dataSources }) => {
+      return dataSources.arenaAPI.createBlock(data);
+    },
+  },
 };
 
 module.exports = { resolvers };

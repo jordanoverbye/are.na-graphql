@@ -98,4 +98,21 @@ Query Users
 
 ## Mutations
 
-Todo
+```graphql
+mutation {
+
+  createChannel(data: { title: "Hello World" }) {
+    id
+    title
+  }
+
+  createBlock(data: {
+    channelSlug: "hello-world".
+    source: "http://google.com"
+  }) {
+    id
+    source
+  }
+
+}
+```

@@ -197,6 +197,21 @@ const typeDefs = gql`
     _allUsersMeta(page: Int, size: Int, search: String!): AllUsersMeta
     User(id: Int): User
   }
+
+  input CreateChannelInput {
+    title: String!
+  }
+
+  input CreateBlockInput {
+    channelSlug: String!
+    source: String
+    content: String
+  }
+
+  type Mutation {
+    createChannel(data: CreateChannelInput): Channel
+    createBlock(data: CreateBlockInput): Block
+  }
 `;
 
 module.exports = { typeDefs };

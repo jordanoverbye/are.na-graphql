@@ -12,6 +12,11 @@ const server = new ApolloServer({
       arenaAPI: new ArenaDataSource(),
     };
   },
+  context: ({ req }) => {
+    return {
+      authorization: req.headers.authorization,
+    };
+  },
 });
 
 server.listen().then(({ url }) => {
