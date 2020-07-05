@@ -1,6 +1,9 @@
-# \*\* are.na-graphql
+# are.na GraphQP server
 
-A GraphQL wrapper around the are.na REST API. Built with [Apollo Server](https://www.apollographql.com/docs/apollo-server/)
+> Note: This is still a WIP
+
+A GraphQL schema and server wrapping the are.na REST API.
+
 
 ## Getting Started
 
@@ -22,7 +25,7 @@ yarn
 yarn dev
 ```
 
-You should now have the server running at `http://localhost:4000`
+You should now have the GraphQL playground running at `http://localhost:4000`
 
 ## Queries
 
@@ -30,59 +33,45 @@ Query all Channels
 
 ```graphql
 {
+
+  # Queries related to 'Channels'
   allChannels(page: 2, size: 50, search: "Poster") {
     id
     title
   }
-
   _allChannelsMeta(page: 2, size: 50, search: "Poster") {
     currentPage: 2
     totalPages: 18
   }
-
   Channel(slug: "a-channel-slug") {
     id
     title
   }
-}
-```
-
-Query all Blocks
-
-```graphql
-{
+  
+  # Queries related to 'Blocks'
   allBlocks(page: 2, size: 50, search: "Code") {
     id
     title
   }
-
   _allBlocksMeta(page: 2, size: 50, search: "Code") {
     currentPage: 2
     totalPages: 18
   }
-
   Block(id: 100) {
     id
     title
   }
-}
-```
-
-Query Users
-
-```graphql
-{
+  
+  # Queries related to 'Users'
   allUsers(page: 1, size: 20, search: "Jordan") {
     id
     firstName
     fullName
   }
-
   _allUsersMeta(page: 1, size: 20, search: "Jordan") {
     currentPage: 1
     totalPages: 18
   }
-
   User(id: 100) {
     id
     firstName
@@ -90,23 +79,24 @@ Query Users
 }
 ```
 
+
+```
+
 ## Mutations
 
 ```graphql
 mutation {
-
-  createChannel(data: { title: "Hello World" }) {
+  createChannel(data: {
+    title: "Hello World",
+    status: private
+  }) {
     id
-    title
   }
-
   createBlock(data: {
     channelSlug: "hello-world".
     source: "http://google.com"
   }) {
     id
-    source
   }
-
 }
 ```
